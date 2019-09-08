@@ -65,5 +65,8 @@ public class ProductController {
         return page;
     }
 
+    public static void main(String[] args) {
+        System.out.println("你马博");
+    }
 
 }
