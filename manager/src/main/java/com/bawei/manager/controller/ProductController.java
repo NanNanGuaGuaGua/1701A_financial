@@ -1,8 +1,10 @@
 package com.bawei.manager.controller;
 
 import com.bawei.entity.Product;
+import com.bawei.entity.enums.ProductStatus;
 import com.bawei.manager.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,9 @@ public class ProductController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Product addProduct(@RequestBody Product product){
+        val auditing = ProductStatus.AUDITING;
+        String desc = auditing.getDesc();
+        product.setStatus(desc);
         log.info("创建产品，参数：{}", product);
         Product result = productService.addProduct(product);
         log.info("创建产品，结果：{}", result);
@@ -65,8 +70,6 @@ public class ProductController {
         return page;
     }
 
-    public static void main(String[] args) {
-        System.out.println("你马博");
-    }
+
 
 }
