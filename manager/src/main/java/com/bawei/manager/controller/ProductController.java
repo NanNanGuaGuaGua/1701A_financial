@@ -20,9 +20,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
+@Slf4j
 public class ProductController {
 
-    Logger log = LoggerFactory.getLogger(ProductController.class);
+
 
     @Autowired
     private ProductService productService;

@@ -36,6 +36,12 @@ ext{
             ],
             test:[
                     "org.springframework.boot:spring-boot-starter-test:${version.springBootVersion}"
+            ],
+            //swagger开发文档
+            swagger: [
+                    "io.springfox:springfox-swagger2:2.7.0",
+                    "io.springfox:springfox-swagger-ui:2.7.0"
             ]
+
     ]
 }

@@ -3,6 +3,7 @@ package com.bawei.manager.service;
 import com.bawei.entity.Product;
 import com.bawei.entity.enums.ProductStatus;
 import com.bawei.manager.repositorie.ProductRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +20,18 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ProductService {
-    private static Logger LOG = LoggerFactory.getLogger(ProductService.class);
+
     @Autowired
     private ProductRepository repository;
 
     public Product addProduct(Product product){
-        LOG.debug("创建产品，参数：{}", product);
+        log.debug("创建产品，参数：{}", product);
         checkProduct(product);
         setDefault(product);
         Product result = repository.save(product);
-        LOG.debug("创建产品，结果：{}", result);
+        log.debug("创建产品，结果：{}", result);
         return result;
     }
 /**
@@ -64,6 +66,8 @@ public class ProductService {
      */
     private void checkProduct(Product product) {
 //        Assert.notNull(product.getId(), ErrorEnum.ID_NOT_NULL.getCode());
+
+
         Assert.notNull(product.getName(), "名称不可为空");
         Assert.notNull(product.getThresholdAmount(), "起投金额不可为空");
         Assert.notNull(product.getStepAmount(), "投资步长不可为空");
@@ -84,9 +88,9 @@ public class ProductService {
      */
     public Product findOne(String id){
         Assert.notNull(id, "需要产品编号参数");
-        LOG.debug("查询单个产品，id={}", id);
+        log.debug("查询单个产品，id={}", id);
         Product product = repository.findOne(id);
-        LOG.debug("查询单个产品，结果={}",product);
+        log.debug("查询单个产品，结果={}",product);
         return product;
     }
 
@@ -102,7 +106,7 @@ public class ProductService {
      */
     public Page<Product> query(List<String> idList, BigDecimal minRewardRate, BigDecimal maxRewardRate,
                                List<String> statusList, Pageable pageable){
-        LOG.debug("查询产品，idList={}，minRewardRate={}，maxRewardRate={}，statusList={}，pageable={}",
+        log.debug("查询产品，idList={}，minRewardRate={}，maxRewardRate={}，statusList={}，pageable={}",
                 idList, minRewardRate, maxRewardRate, statusList, pageable);
         Specification<Product> specification = new Specification<Product>() {
             @Override
@@ -130,7 +134,7 @@ public class ProductService {
         };
 
         Page<Product> page = repository.findAll(specification, pageable);
-        LOG.debug("查询产品，结果={}", page);
+        log.debug("查询产品，结果={}", page);
         return page;
     }
 

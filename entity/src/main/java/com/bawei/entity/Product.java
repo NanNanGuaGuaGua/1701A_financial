@@ -1,6 +1,8 @@
 package com.bawei.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,6 +12,7 @@ import java.util.Date;
 
 @Entity(name = "product")
 @Data
+@ToString
 public class Product implements Serializable {
     @Id
     private String id;
